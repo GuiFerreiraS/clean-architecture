@@ -27,7 +27,7 @@ describe("Customer unity tests", () => {
   it("should activate customer", () => {
     const customer = new Customer("1", "Customer 1");
     const address = new Address("Street 1", 10, "387468-000", "New York");
-    customer.Address = address;
+    customer.address = address;
     customer.activate();
     expect(customer.isActive()).toBe(true);
   });

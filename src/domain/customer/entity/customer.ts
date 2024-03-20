@@ -37,7 +37,7 @@ export default class Customer {
     return this._rewardPoints;
   }
 
-  get Address(): Address {
+  get address(): Address {
     return this._address;
   }
 
@@ -81,7 +81,7 @@ export default class Customer {
     return this._active;
   }
 
-  set Address(address: Address) {
+  set address(address: Address) {
     this._address = address;
   }
 }

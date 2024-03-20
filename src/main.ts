@@ -10,7 +10,7 @@ const address = new Address(
   "37468-000",
   "Pouso Alto"
 );
-customer.Address = address;
+customer.address = address;
 customer.activate();
 
 const item1 = new OrderItem("1", "Item 1", 10, "1", 2);

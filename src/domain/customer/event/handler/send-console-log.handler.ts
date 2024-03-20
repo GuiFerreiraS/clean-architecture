@@ -5,7 +5,7 @@ export default class EnviaConsoleLogHandler
   implements EventHandlerInterface<CustomerAddressChangedEvent>
 {
   handle(event: CustomerAddressChangedEvent): void {
-    const { Address, id, name } = event.eventData;
+    const { address: Address, id, name } = event.eventData;
     console.log(
       `Endereço do cliente: ${id}, ${name} alterado para: ${Address.street} - ${Address.city} ,${Address.number}.`
     );
