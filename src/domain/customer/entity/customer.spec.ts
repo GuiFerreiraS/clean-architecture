@@ -9,13 +9,21 @@ describe("Customer unity tests", () => {
   it("should throw error when id is empty", () => {
     expect(() => {
       let customer = new Customer("", "Guilherme");
-    }).toThrow("Id cannot be empty");
+    }).toThrow("customer: Id cannot be empty");
   });
 
   it("should throw error when name have name smaller than 3", () => {
     expect(() => {
       let customer = new Customer("1", "");
-    }).toThrow("Name must be at least 3 characters long");
+    }).toThrow("customer: Name must be at least 3 characters long");
+  });
+
+  it("should throw error when id is empty and name is smaller than 3", () => {
+    expect(() => {
+      let customer = new Customer("", "");
+    }).toThrow(
+      "customer: Id cannot be empty, customer: Name must be at least 3 characters long"
+    );
   });
 
   it("should change name", () => {

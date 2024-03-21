@@ -1,10 +1,11 @@
+import Entity from "../../@shared/entity/entity.abstract";
 import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface";
+import NotificationError from "../../@shared/notification/notification.error";
 import CustomerAddressChangedEvent from "../event/customer-address-changed.event";
 import CustomerCreatedEvent from "../event/customer-created.event";
 import Address from "../value-object/address";
 
-export default class Customer {
-  private _id: string;
+export default class Customer extends Entity {
   private _name: string = "";
   private _address!: Address;
   private _active: boolean = true;
@@ -16,17 +17,18 @@ export default class Customer {
     name: string,
     eventDispatcher?: EventDispatcherInterface
   ) {
+    super();
     this._id = id;
     this._name = name;
     this.validate();
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
+
     this.eventDispatcher = eventDispatcher;
 
     const customerCreatedEvent = new CustomerCreatedEvent({ id, name });
     eventDispatcher?.notify(customerCreatedEvent);
-  }
-
-  get id(): string {
-    return this._id;
   }
 
   get name(): string {
@@ -42,11 +44,17 @@ export default class Customer {
   }
 
   validate() {
-    if (this._id.length === 0) {
-      throw new Error("Id cannot be empty");
+    if (this.id.length === 0) {
+      this.notification.addError({
+        context: "customer",
+        message: "Id cannot be empty",
+      });
     }
     if (this._name.length < 3) {
-      throw new Error("Name must be at least 3 characters long");
+      this.notification.addError({
+        context: "customer",
+        message: "Name must be at least 3 characters long",
+      });
     }
   }
 
