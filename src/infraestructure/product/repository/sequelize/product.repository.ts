@@ -24,6 +24,10 @@ export default class ProductRepository implements ProductRepositoryInterface {
       where: { id },
     });
 
+    if (!productModel) {
+      throw new Error("Product not found");
+    }
+
     return new Product(productModel.id, productModel.name, productModel.price);
   }
   async findAll(): Promise<Product[]> {

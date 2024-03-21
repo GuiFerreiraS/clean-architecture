@@ -27,6 +27,7 @@ export default class Product implements ProductInterface {
 
   changeName(name: string): void {
     this._name = name;
+    this.validate();
   }
 
   get id(): string {
@@ -39,6 +40,7 @@ export default class Product implements ProductInterface {
 
   changePrice(price: number): void {
     this._price = price;
+    this.validate();
   }
 
   get price(): number {
