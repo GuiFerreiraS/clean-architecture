@@ -61,11 +61,11 @@ describe("Factory test create product use case", () => {
 
     await expect(
       productCreateUseCase.execute({ ...inputA, name: "" })
-    ).rejects.toThrow("Name is required");
+    ).rejects.toThrow("product: Name is required");
 
     await expect(
       productCreateUseCase.execute({ ...inputB, name: "" })
-    ).rejects.toThrow("Name is required");
+    ).rejects.toThrow("product: Name is required");
   });
 
   it("should throw an error when price is negative for type a and b", async () => {
@@ -74,10 +74,10 @@ describe("Factory test create product use case", () => {
 
     await expect(
       productCreateUseCase.execute({ ...inputA, price: -1 })
-    ).rejects.toThrow("Price must be greater than zero");
+    ).rejects.toThrow("product: Price must be greater than zero");
 
     await expect(
       productCreateUseCase.execute({ ...inputB, price: -1 })
-    ).rejects.toThrow("Price must be greater than zero");
+    ).rejects.toThrow("product: Price must be greater than zero");
   });
 });

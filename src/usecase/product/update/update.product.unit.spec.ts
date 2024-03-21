@@ -1,10 +1,8 @@
-import ProductFactory from "../../../domain/product/factory/product.factory";
+import Product from "../../../domain/product/entity/product";
 import UpdateProductUseCase from "./update.product.usecase";
 
-const product = ProductFactory.create("a", "Product A", 100);
-
 const input = {
-  id: product.id,
+  id: "123",
   name: "Product A",
   price: 100,
 };
@@ -12,7 +10,9 @@ const input = {
 const MockRepository = () => ({
   create: jest.fn(),
   findAll: jest.fn(),
-  find: jest.fn().mockReturnValue(Promise.resolve(product)),
+  find: jest
+    .fn()
+    .mockReturnValue(Promise.resolve(new Product("123", "Product A", 100))),
   update: jest.fn(),
 });
 
@@ -32,7 +32,7 @@ describe("Unit test update product use case", () => {
 
     await expect(
       productUpdateUseCase.execute({ ...input, name: "" })
-    ).rejects.toThrow("Name is required");
+    ).rejects.toThrow("product: Name is required");
   });
 
   it("should throw an error when price is negative", async () => {
@@ -41,6 +41,6 @@ describe("Unit test update product use case", () => {
 
     await expect(
       productUpdateUseCase.execute({ ...input, price: -10 })
-    ).rejects.toThrow("Price must be greater than zero");
+    ).rejects.toThrow("product: Price must be greater than zero");
   });
 });
