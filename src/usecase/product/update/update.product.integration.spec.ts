@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import UpdateProductUseCase from "./update.product.usecase";
-import ProductModel from "../../../infraestructure/product/repository/sequelize/product.model";
-import ProductRepository from "../../../infraestructure/product/repository/sequelize/product.repository";
+import ProductModel from "../../../infrastructure/product/repository/sequelize/product.model";
+import ProductRepository from "../../../infrastructure/product/repository/sequelize/product.repository";
 import Product from "../../../domain/product/entity/product";
 
 const product = new Product("123", "Product A", 100);
