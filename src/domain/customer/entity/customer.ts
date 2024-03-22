@@ -3,6 +3,7 @@ import EventDispatcherInterface from "../../@shared/event/event-dispatcher.inter
 import NotificationError from "../../@shared/notification/notification.error";
 import CustomerAddressChangedEvent from "../event/customer-address-changed.event";
 import CustomerCreatedEvent from "../event/customer-created.event";
+import CustomerValidatorFactory from "../factory/customer.validator.factory";
 import Address from "../value-object/address";
 
 export default class Customer extends Entity {
@@ -21,9 +22,6 @@ export default class Customer extends Entity {
     this._id = id;
     this._name = name;
     this.validate();
-    if (this.notification.hasErrors()) {
-      throw new NotificationError(this.notification.getErrors());
-    }
 
     this.eventDispatcher = eventDispatcher;
 
@@ -44,17 +42,9 @@ export default class Customer extends Entity {
   }
 
   validate() {
-    if (this.id.length === 0) {
-      this.notification.addError({
-        context: "customer",
-        message: "Id cannot be empty",
-      });
-    }
-    if (this._name.length < 3) {
-      this.notification.addError({
-        context: "customer",
-        message: "Name must be at least 3 characters long",
-      });
+    CustomerValidatorFactory.create().validate(this);
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
     }
   }
 
